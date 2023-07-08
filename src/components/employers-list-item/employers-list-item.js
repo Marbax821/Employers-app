@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import './employes-list-item.css';
 
-class EmployesListItem extends Component {
+class EmployersListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,13 +19,13 @@ class EmployesListItem extends Component {
 
     onRise = (e) => {
         console.log(e.target);
-        this.setState(({rise}) => ({
+        this.setState(({ rise }) => ({
             rise: !rise
         }));
     }
 
     render() {
-        const { name, salary } = this.props;
+        const { name, salary, onDelete } = this.props;
         const { increase, rise } = this.state;
 
         let classNames = 'list-group-item d-flex justify-content-between';
@@ -49,7 +49,8 @@ class EmployesListItem extends Component {
                     </button>
 
                     <button type="button"
-                        className="btn-trash btn-sm ">
+                        className="btn-trash btn-sm "
+                        onClick={onDelete}>
                         <i className="fas fa-trash"></i>
                     </button>
                     <i className="fas fa-star"></i>
@@ -59,4 +60,4 @@ class EmployesListItem extends Component {
     }
 }
 
-export default EmployesListItem;
+export default EmployersListItem;

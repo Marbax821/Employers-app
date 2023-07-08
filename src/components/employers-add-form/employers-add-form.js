@@ -7,32 +7,70 @@ class EmployersAddForm extends Component {
         super(props);
         this.state = {
             name: '',
-            salary: ''
+            salary: '',
+            errors: {
+                name: false,
+                salary: false
+            }
         }
     }
 
     onValueChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            errors: {
+                ...this.state.errors,
+                [e.target.name]: false
+            }
         })
     }
 
-    render() {
+    onSubmit = (e) => {
+        e.preventDefault();
+
         const { name, salary } = this.state;
+
+        if (this.state.name && this.state.salary) { // Проверяем наличие значений name и salary
+            this.props.onAdd(name, salary);
+            this.setState({
+                name: '',
+                salary: ''
+            });
+        } else {
+            this.setState({
+                errors: {
+                    name: !name,
+                    salary: !salary
+                }
+            });
+        }
+        setTimeout(() => {
+            this.setState({
+                errors: {
+                    name: false,
+                    salary: false
+                }
+            });
+        }, 2000);
+    };
+
+    render() {
+        const { name, salary, errors } = this.state;
 
         return (
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
                 <form
-                    className="add-form d-flex">
+                    className="add-form d-flex"
+                    onSubmit={this.onSubmit}>
                     <input type="text"
-                        className="form-control new-post-label"
+                        className={`form-control new-post-label ${errors.name ? 'error' : ''}`}
                         placeholder="Как его зовут?"
                         name='name'
                         value={name}
                         onChange={this.onValueChange} />
                     <input type="number"
-                        className="form-control new-post-label"
+                        className={`form-control new-post-label ${errors.salary ? 'error' : ''}`}
                         placeholder="З/П в $?"
                         name='salary'
                         value={salary}
