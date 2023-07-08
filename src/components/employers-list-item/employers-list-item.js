@@ -1,5 +1,6 @@
-import './employes-list-item.css';
 import { Component } from 'react';
+
+import './employes-list-item.css';
 
 class EmployesListItem extends Component {
     constructor(props) {
