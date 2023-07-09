@@ -30,7 +30,7 @@ class EmployersAddForm extends Component {
 
         const { name, salary } = this.state;
 
-        if (this.state.name && this.state.salary) { // Проверяем наличие значений name и salary
+        if (name && salary) { // Проверяем наличие значений name и salary
             this.props.onAdd(name, salary);
             this.setState({
                 name: '',
